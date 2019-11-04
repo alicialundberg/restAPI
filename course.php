@@ -39,6 +39,20 @@
            return $result = $this->db->query($sql);
            get_courses();
         }
+	    
+	 // Update data in database table that's matching the ID
+        public function update_course($id, $code, $name, $progression, $course_syllabus) {
+            $sql = "UPDATE courses SET code= '$code', name= '$name', progression= '$progression', course_syllabus= '$course_syllabus' WHERE id=$id;";
+            return $result = $this->db->query($sql);
+            get_courses();
+        }
+
+         // Delete data in database table that's matching the ID
+         public function delete_course($id) {
+            $sql = "DELETE FROM courses WHERE id=$id;";
+            return $result = $this->db->query($sql);
+            get_courses();
+        }
 
     }
 ?>
