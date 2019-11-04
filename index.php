@@ -8,6 +8,7 @@
     
     // Get HTTP method, path and input of the request
     $method = $_SERVER['REQUEST_METHOD'];
+    $request = explode('/', trim($_SERVER['PATH_INFO'], '/'));
     $input = json_decode(file_get_contents('php://input'), true);
   
     include('config.php');
@@ -27,6 +28,14 @@ switch ($method){
             $response = array("message" => "Error adding course");
         }
         break;
+    case "PUT":
+        $course->update_course($request[1], $input['code'], $input['name'], $input['progression'], $input['course_syllabus']);
+        $response = array("message" => "Course updated.");
+        break;
+    case "DELETE":
+       $course->delete_course($request[1]);
+       $response = array("message" => "Course deleted.");
+       break;
     }
 
     echo json_encode($response);
